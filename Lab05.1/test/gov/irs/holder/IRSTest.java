@@ -28,7 +28,9 @@ public class IRSTest {
    */
   @Test
   public void testSingleton() {
-    
+    IRS irs1 = IRS.getInstance();
+    IRS irs2 = IRS.getInstance();
+    assertSame(irs1, irs2);
   }
   
   @Test

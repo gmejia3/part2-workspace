@@ -25,7 +25,7 @@ public class IRS {
   public void register(TaxPayer payer) {
     payers.add(payer);
   }
-  
+
 
   // SINGLETON CODE
   // so we can see when IRS class is loaded
@@ -53,7 +53,7 @@ public class IRS {
   }
   
   private static class IRSHolder {
-    private static IRS instance = new IRS();
+    private static final IRS instance = new IRS();
     
     // so we can see when IRS.IRSHolder class is loaded
     static {
