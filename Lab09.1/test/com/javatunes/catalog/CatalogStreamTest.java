@@ -8,6 +8,7 @@
  */
 package com.javatunes.catalog;
 
+import static java.util.Comparator.comparing;
 import static org.junit.Assert.*;
 import java.util.Collection;
 import java.util.Comparator;
@@ -35,7 +36,7 @@ public class CatalogStreamTest {
   public void testArtistStartsWithSortPrice() {
     List<MusicItem> items = allMusicItems.stream()
       .filter(item -> item.getArtist().startsWith("D"))
-      .sorted(Comparator.comparing(item -> item.getPrice()))
+      .sorted(comparing(musicItem -> musicItem.getPrice()))
       .collect(Collectors.toList());
     
     assertEquals(2, items.size());
@@ -51,7 +52,12 @@ public class CatalogStreamTest {
    */
   @Test
   public void testTitleEqualsArtistSortNaturalOrder() {
-    // TODO
+
+    List<MusicItem> items = allMusicItems.stream()
+        .filter(item -> item.getArtist().equals(item.getTitle()))
+        .sorted()
+        .collect(Collectors.toList());
+    System.out.println(items);
   }
   
   /**
@@ -63,7 +69,11 @@ public class CatalogStreamTest {
    */
   @Test
   public void testPriceLessThanSortMusicCategory() {
-    // TODO
+    List<MusicItem> items = allMusicItems.stream()
+        .filter(item -> item.getPrice() < 12.00)
+        .sorted(comparing(musicItem -> musicItem.getMusicCategory()))
+        .collect(Collectors.toList());
+    System.out.println(items);
   }
   
   /**
@@ -73,7 +83,11 @@ public class CatalogStreamTest {
    */
   @Test
   public void testSortMusicCategorySortReleaseDateDesc() {
-    // TODO
+    List<MusicItem> items = allMusicItems.stream()
+        .filter(item -> item.getMusicCategory() == (MusicCategory.ROCK))
+        .filter(item -> item.getPrice() < 15)
+        .sorted(comparing((MusicItem musicItem) -> musicItem.getReleaseDate()).reversed())
+        .collect(Collectors.toList());
   }
   
   /**
@@ -84,7 +98,16 @@ public class CatalogStreamTest {
    */
   @Test
   public void testPriceGreaterThanSortPriceDescThenMusicCategory() {
-    // TODO
+    List<MusicItem> items = allMusicItems.stream()
+        .filter(item -> item.getPrice() > 17.00)
+        .sorted(comparing(MusicItem::getPrice).reversed()
+            .thenComparing(MusicItem::getArtist))
+        .collect(Collectors.toList());
+
+    assertEquals(7, items.size());
+
+    System.out.println(items);
+
   }
   
   /**

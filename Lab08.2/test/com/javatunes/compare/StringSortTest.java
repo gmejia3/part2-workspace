@@ -51,7 +51,9 @@ public class StringSortTest {
   @Test
   public void testSortMethodReference() {
     System.out.println("testSortMethodReference:");
-    
+
+    Comparator<String> ascendingLengthComparator = StringSortTest::compareStrings;
+
     // TODO: sort names by using a method reference
     System.out.println("Names sort - increasing length - method reference:");
      names.sort(StringSortTest::compareStrings);
